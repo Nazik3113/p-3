@@ -38,9 +38,6 @@ let {
   clean_css = require("gulp-clean-css"),
   rename = require("gulp-rename"),
   imagemin = require("gulp-imagemin"),
-  webp = require("gulp-webp"),
-  webphtml = require("gulp-webp-html"),
-  webpcss = require("gulp-webp-css"),
   ttf2woff = require("gulp-ttf2woff"),
   ttf2woff2 = require("gulp-ttf2woff2"),
   autoPrefixer = require("gulp-autoprefixer");
@@ -72,7 +69,6 @@ function clean() {
 
 function html() {
   return src(path.src.html)
-    .pipe(webphtml())
     .pipe(dest(path.build.html))
     .pipe(browsersync.stream());
 }
@@ -90,7 +86,6 @@ function css() {
         cascade: true,
       })
     )
-    .pipe(webpcss())
     .pipe(dest(path.build.css))
     .pipe(
       rename({
@@ -104,11 +99,6 @@ function css() {
 
 function images() {
   return src(path.src.img)
-    .pipe(
-      webp({
-        quality: 70,
-      })
-    )
     .pipe(dest(path.build.img))
     .pipe(src(path.src.img))
     .pipe(
